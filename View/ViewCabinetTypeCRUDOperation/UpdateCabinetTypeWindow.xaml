@@ -1,0 +1,37 @@
+﻿<Window
+    x:Class="Schedule.View.ViewCabinetTypeCRUDOperation.UpdateCabinetTypeWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Schedule.View.ViewCabinetTypeCRUDOperation"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Schedule.ViewModel.ViewModelCabinetType"
+    Title="CreateCabinetWindow"
+    Width="300"
+    Height="200"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <vm:ViewModelUpdateCabinet />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Width="200"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Vertical">
+            <TextBlock Text="Название кабинета" />
+            <TextBox Text="{Binding CabinetSelectedTabItem.CabinetName}" />
+            <TextBlock Text="Описание" />
+            <TextBox Text="{Binding CabinetSelectedTabItem.Discription}" />
+        </StackPanel>
+        <Button
+            Grid.Row="1"
+            Command="{Binding UpdateCabinetType}"
+            Content="Изменить тип кабинета" />
+    </Grid>
+</Window>

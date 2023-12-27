@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schedule", "Schedule.csproj", "{B71E9141-C25E-4062-AAD8-EE4E229E08C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Captcha", "Captcha\Captcha.csproj", "{7F76B381-9788-4E8D-9711-13351DBC3093}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B71E9141-C25E-4062-AAD8-EE4E229E08C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B71E9141-C25E-4062-AAD8-EE4E229E08C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B71E9141-C25E-4062-AAD8-EE4E229E08C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B71E9141-C25E-4062-AAD8-EE4E229E08C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F76B381-9788-4E8D-9711-13351DBC3093}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F76B381-9788-4E8D-9711-13351DBC3093}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F76B381-9788-4E8D-9711-13351DBC3093}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F76B381-9788-4E8D-9711-13351DBC3093}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84164CEF-56BD-4CFB-B214-F74A95EF5A5A}
+	EndGlobalSection
+EndGlobal

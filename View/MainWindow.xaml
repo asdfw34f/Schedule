@@ -1,0 +1,326 @@
+﻿<Window
+    x:Class="Schedule.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Schedule.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Schedule.ViewModel"
+    Title="{Binding Title}"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.DataContext>
+        <vm:MainWindowViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu Height="20" VerticalAlignment="Center">
+            <MenuItem Header="File">
+                <MenuItem Header="Добавить">
+                    <MenuItem Command="{Binding OpenCreateCabinetCommand}" Header="Добавить кабинет" />
+                    <MenuItem Command="{Binding OpenCreateCabinetTypeCommand}" Header="Новая группа" />
+                    <MenuItem Header="Добавить номера пар" />
+                    <MenuItem Header="Добавить Предмет" />
+                    <MenuItem Header="Добавить тип кабинета" />
+                    <MenuItem Header="Добавить преподователя" />
+                    <MenuItem Header="Добавить семестр" />
+                    <MenuItem Header="Добавить неделю" />
+                    <MenuItem Header="Добавить рабочую неделю" />
+                    <MenuItem Header="Добавить день" />
+                    <MenuItem Header="Добавить занатие" />
+                </MenuItem>
+                <MenuItem Header="Экспортировать">
+                    <MenuItem Command="{Binding ExportExcelCabinetType}" Header="Экспорти кабинет" />
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <TabControl Grid.Row="1" SelectedItem="{Binding SelectedTabItem}">
+
+            <TabItem Name="CabinetTab">
+                <TabItem.Header>
+                    <TextBlock Text="Кабинет" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="Cabinets"
+                    ItemsSource="{Binding Cabinets}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedCabinet}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IdcabinetTypeNavigation.CabinetName}" Header="Тип кабинета" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=AmmountPlaces}" Header="Количество мест" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=CabinetNumber}" Header="номер кабинета" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="CabinetTypeTab">
+                <TabItem.Header>
+                    <TextBlock Text="Тип кабинета" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="CabinetTypes"
+                    ItemsSource="{Binding CabinetTypes}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedCabinetType}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=CabinetName}" Header="Тип кабинета" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Discription}" Header="Описание" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="DayTab">
+                <TabItem.Header>
+                    <TextBlock Text="День" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="Days"
+                    ItemsSource="{Binding Days}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedDay}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IdweekNavigation.Idsemester}" Header="Неделя" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IdweekdayNavigation.NameWeekday}" Header="День недели" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=DateDay}" Header="Дата" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="GroupTab">
+                <TabItem.Header>
+                    <TextBlock Text="Группы" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="Groups"
+                    ItemsSource="{Binding Groups}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedGroup}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=GroupNumber}" Header="Номер группы(полное)" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=ShortNumber}" Header="Номер группы(короткое)" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=StudentAmmount}" Header="Количество человек" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="LessonTab">
+                <TabItem.Header>
+                    <TextBlock Text="Пары" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="Lessons"
+                    ItemsSource="{Binding Lessons}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedLesson}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IddayNavigation.Idday}" Header="День" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IdlessonNumberNavigation.IdlessonNumber}" Header="Количество мест" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IdcabinetNavigation.Idcabinet}" Header="номер кабинета" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IdgroupNavigation}" Header="номер кабинета" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IdsubjectNavigation}" Header="номер кабинета" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IdteacherNavigation}" Header="номер кабинета" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="LessonNumberTab">
+                <TabItem.Header>
+                    <TextBlock Text="Номер пары" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="LessonNumbers"
+                    ItemsSource="{Binding LessonNumbers}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedLessonNumber}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=LessonNumber1}" Header="Тип кабинета" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="SemesterTab">
+                <TabItem.Header>
+                    <TextBlock Text="Семестр" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="Semesters"
+                    ItemsSource="{Binding Semesters}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedSemester}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Year}" Header="Год" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=EvenOdd}" Header="Четная или нечетная" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="SubjectTab">
+                <TabItem.Header>
+                    <TextBlock Text="Предметы" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="Subjects"
+                    ItemsSource="{Binding Subjects}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedSubject}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=SubjectName}" Header="Название предмета" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=SemesterNumber}" Header="Номер семестра" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=LectureHours}" Header="Лекции" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=PracticHours}" Header="Практика" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=LabHours}" Header="Лаба" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=AttestationHourse}" Header="Аттестация" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=ConsultationHours}" Header="Консультация" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=TotalHours}" Header="Общее" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="TeacherTab">
+                <TabItem.Header>
+                    <TextBlock Text="Преподователи" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="Theachets"
+                    ItemsSource="{Binding Teachers}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedTeacher}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Имя" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}" Header="Фамилия" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=MiddleName}" Header="Отчество" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Status}" Header="Статус" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="WeekTab">
+                <TabItem.Header>
+                    <TextBlock Text="Недели" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="Weeks"
+                    ItemsSource="{Binding Weeks}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedWeek}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=IdsemesterNavigation}" Header="ID семестра" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+            <TabItem Name="WeekdayTab">
+                <TabItem.Header>
+                    <TextBlock Text="День недели" />
+                </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="{Binding UpdateItem}" Header="Редактирова" />
+                        <MenuItem Command="{Binding DeleteItem}" Header="Удалить" />
+                    </ContextMenu>
+                </TabItem.ContextMenu>
+                <ListView
+                    x:Name="Weekdays"
+                    ItemsSource="{Binding Weekdays}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    SelectedItem="{Binding SelectedWeekday}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=NameWeekday}" Header="День недели" />
+
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</Window>
